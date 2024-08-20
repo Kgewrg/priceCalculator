@@ -4,7 +4,7 @@ import math
 import json 
 from datetime import datetime
 
-
+# a comment to delete later
 
 
 def roundPrice(price):
