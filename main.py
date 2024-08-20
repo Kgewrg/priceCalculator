@@ -3,8 +3,33 @@ import pyperclip as pc
 import math
 import json 
 from datetime import datetime
+from bs4 import BeautifulSoup
+import requests
 
-# a comment to delete later
+
+
+def getPriceFromURL(url: str):
+
+
+    page = requests.get(url)
+    soup = BeautifulSoup(page.text, "html.parser")
+
+
+    info_div = soup.find('div', id='product-info')
+    h3 = info_div.find("h3")
+    data = h3.get_text(strip=True)
+    print("productTitle:", data)
+
+    priceDiv = soup.find("div", id="price")
+    price = priceDiv.get_text(strip=True)
+    print("price:", price)
+
+
+  
+
+    pass    
+
+
 
 
 def roundPrice(price):
@@ -255,6 +280,8 @@ afterFPA_copy.grid(row=5, column=2, sticky="w")
 # Button to trigger conversion
 convert_button = tk.Button(root, text="Calculate", command=calculate_price)
 convert_button.grid(row=6, column=0, columnspan=3, padx=10, pady=10)
+
+getPriceFromURL("https://www.volte-tel.gr/index.php?SCREEN=products_detail&ProductID=75394&a=2")
 
 
 root.bind("<Return>", calculate_price)
